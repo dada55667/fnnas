@@ -136,6 +136,7 @@ on:
           - roceos-k40pro
           - rock-5-itx
           - rock-3a
+          - cx3568a
           - rock-3b
           - rock-3c
           - rock5b
@@ -481,7 +482,7 @@ jobs:
 
       - name: Package FnNAS for target boards
         if: ${{ steps.down.outputs.status == 'success' && !cancelled() }}
-        uses: ophub/fnnas@main
+        uses: ./
         with:
           fnnas_path: fnnas/*.img.xz
           fnnas_board: ${{ inputs.fnnas_board }}

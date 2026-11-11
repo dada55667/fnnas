@@ -791,6 +791,12 @@ make_image() {
 
     # Write bootloader for Rockchip platform
     [[ "${PLATFORM}" == "rockchip" ]] && {
+        # CX3568A (rk3568): reuse rock-3a u-boot binaries (same DDR init)
+        if [[ "${board}" == "cx3568a" && ! -d "${uboot_path}/rockchip/cx3568a" ]]; then
+            mkdir -p "${uboot_path}/rockchip/cx3568a"
+            cp -f "${uboot_path}/rockchip/rock-3a/idbloader.img" "${uboot_path}/rockchip/cx3568a/" 2>/dev/null
+            cp -f "${uboot_path}/rockchip/rock-3a/u-boot.itb" "${uboot_path}/rockchip/cx3568a/" 2>/dev/null
+        fi
         bootloader_path="${uboot_path}/${PLATFORM}/${board}"
         if [[ -n "${BOOTLOADER_IMG}" && -f "${bootloader_path}/${BOOTLOADER_IMG}" ]] &&
             [[ -n "${MAINLINE_UBOOT}" && -f "${bootloader_path}/${MAINLINE_UBOOT}" ]] &&
